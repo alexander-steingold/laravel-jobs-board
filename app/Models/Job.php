@@ -12,9 +12,9 @@ class Job extends Model
 {
     use HasFactory;
 
-    public function employee(): BelongsTo
+    public function employer(): BelongsTo
     {
-        return $this->belongsTo(Employee::class);
+        return $this->belongsTo(Employer::class);
     }
 
     public static array $experience = ['entry', 'intermediate', 'senior']; // > php 7.4
@@ -26,7 +26,7 @@ class Job extends Model
             $query->where(function ($query) use ($search) {
                 $query->where('title', 'like', '%' . $search . '%')
                     ->orWhere('description', 'like', '%' . $search . '%')
-                    ->orWhereHas('employee', function ($query) use ($search) {
+                    ->orWhereHas('employer', function ($query) use ($search) {
                         $query->where('company_name', 'like', '%' . $search . '%');
                     });
             });

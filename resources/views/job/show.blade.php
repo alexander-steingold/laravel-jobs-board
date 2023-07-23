@@ -9,10 +9,10 @@
 
     <x-card class="mb-4">
         <h2 class="mb-4 font-medium text-lg">
-            More {{ $job->employee->company_name }} Jobs
+            More {{ $job->employer->company_name }} Jobs
         </h2>
         <div class="text-sm text-slate-500">
-            @foreach($job->employee->jobs as $otherJob)
+            @foreach($job->employer->jobs as $otherJob)
                 <div class="flex mb-4 justify-between">
                     <div>
                         <div class="text-slate-700">
