@@ -2,38 +2,37 @@
     <x-breadcrumbs class="mb-4"
                    :links="['Jobs' => route('jobs.index')]"/>
 
-    <x-card class="mb-4 text-sm">
-        <form action="{{ route('jobs.index') }}" id="filter-frm" method="GET">
+    <x-card class="mb-4 text-sm" x-data="">
+        <form x-ref="filters" action="{{ route('jobs.index') }}" id="filter-frm" method="GET">
             <div class="mb-4 grid grid-cols-2 gap-4">
                 <div>
                     <div class="mb-1 font-semibold">Search</div>
                     <x-textinput name="search" value="{{ request('search') }}"
-                                 placeholder="Search for any text" form-id="filter-frm"></x-textinput>
+                                 placeholder="Search for any text" form-ref="filters"></x-textinput>
                 </div>
                 <div>
                     <div class="mb-1 font-semibold">Salary</div>
                     <div class="flex justify-between space-x-2">
                         <x-textinput name="min_salary" value="{{ request('min_salary') }}"
-                                     placeholder="From" form-id="filter-frm"></x-textinput>
+                                     placeholder="From" form-ref="filters"></x-textinput>
                         <x-textinput name="max_salary" value="{{ request('max_salary') }}"
-                                     placeholder="To" form-id="filter-frm"></x-textinput>
+                                     placeholder="To" form-ref="filters"></x-textinput>
                     </div>
                 </div>
                 <div>
                     <div class="mb-1 font-semibold">Experience</div>
                     <x-radio-group name="experience"
+                                   form-ref="filters"
                                    :options="array_combine(array_map('ucfirst', \App\Models\Job::$experience) , \App\Models\Job::$experience)"/>
                 </div>
                 <div>
                     <div class="mb-1 font-semibold">Category</div>
-                    <x-radio-group name="category" :options="\App\Models\Job::$category"/>
+                    <x-radio-group name="category"
+                                   form-ref="filters"
+                                   :options="\App\Models\Job::$category"/>
                 </div>
             </div>
-            <button
-                class=" w-full rounded-md border border-slate-300 bg-white px-2.5 py-1.5 text-center text-sm
-                                   font-semibold text-black shadow-sm hover:bg-slate-100"
-                type="submit">Filter
-            </button>
+            <x-button class="w-full">Filter</x-button>
         </form>
     </x-card>
     @foreach($jobs as $job)
